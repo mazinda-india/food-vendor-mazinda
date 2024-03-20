@@ -78,9 +78,9 @@ const Menu = () => {
   };
 
   return (
-    <div className="md:w-1/3 mx-auto p-4">
+    <div className="md:w-1/2 mx-auto p-4">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl text-center">{storeName}</h2>
+        <h2 className="text-2xl text-center">Welcome '{storeName}'</h2>
 
         <div className="flex items-center space-x-2">
           <Label htmlFor="open-mode">
