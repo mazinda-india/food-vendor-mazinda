@@ -191,10 +191,10 @@ const RestaurantMenu = () => {
 
       <div className="mt-4">
         {categories.map((category, categoryIndex) => (
-          <div key={categoryIndex} className="mb-4">
+          <div key={categoryIndex} className="mb-4 border p-2 rounded-md">
             <h2 className="text-lg font-semibold">{category}</h2>
-            <div className="flex flex-col sm:flex-row mt-2 justify-between">
-              <div className="flex flex-col">
+            <div className="flex flex-col sm:flex-row mt-2 justify-between gap-2 border p-2 rounded-md">
+              <div className="flex flex-col gap-2">
                 <Input
                   type="text"
                   placeholder="Product Name"
