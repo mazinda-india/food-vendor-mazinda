@@ -5,7 +5,8 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 const RestaurantMenu = () => {
   const [categories, setCategories] = useState([]);
   const [currentCategory, setCurrentCategory] = useState("");
@@ -13,7 +14,7 @@ const RestaurantMenu = () => {
   const [currentProduct, setCurrentProduct] = useState("");
   const [currentPrice, setCurrentPrice] = useState("");
   const [currentCategoryType, setCurrentCategoryType] = useState("veg");
-  const [currentAvailability, setCurrentAvailability] = useState("quantity");
+  const [currentAvailability, setCurrentAvailability] = useState("unlimited");
   const [isEditing, setIsEditing] = useState(false);
   const [editProductIndex, setEditProductIndex] = useState(null);
 
@@ -142,7 +143,13 @@ const RestaurantMenu = () => {
       console.error("An error occured : " + error);
     }
   };
-
+  const handleToggle = () => {
+    if (currentAvailability === "unlimited") {
+      setCurrentAvailability("over");
+    } else {
+      setCurrentAvailability("unlimited");
+    }
+  };
   useEffect(() => {
     const fetchMenu = async () => {
       const vendorResponse = await fetch("/api/vendor/me", {
@@ -169,7 +176,7 @@ const RestaurantMenu = () => {
 
     fetchMenu();
   }, []);
-
+  console.log("sart", currentAvailability);
   return (
     <div className="mx-auto p-4 md:w-1/2">
       <div className="flex justify-between items-center">
@@ -217,7 +224,28 @@ const RestaurantMenu = () => {
                 <option value="veg">veg</option>
                 <option value="nonveg">nonveg</option>
               </select>
-              <div className="flex flex-col">
+
+              {isEditing && (
+                <div className="flex items-center space-x-2">
+                  <Label htmlFor="quantity-mode">
+                    {currentAvailability === "unlimited" ? (
+                      <span className="bg-green-100 text-green-600 text-sm py-1 px-3 rounded-xl">
+                        Available
+                      </span>
+                    ) : (
+                      <span className="bg-yellow-100 text-yellow-600 text-sm py-1 px-3 rounded-xl">
+                        Over
+                      </span>
+                    )}
+                  </Label>
+                  <Switch
+                    checked={currentAvailability === "unlimited"}
+                    onCheckedChange={handleToggle}
+                  />
+                </div>
+              )}
+
+              {/* <div className="flex flex-col">
                 <label className="mr-2">
                   <input
                     type="radio"
@@ -236,7 +264,8 @@ const RestaurantMenu = () => {
                   />{" "}
                   Over
                 </label>
-              </div>
+              </div> */}
+
               <button
                 onClick={() => handleAddProduct(category)}
                 className={`mt-2 md:mt-0 w-full h-fit sm:w-auto px-4 py-2 ${

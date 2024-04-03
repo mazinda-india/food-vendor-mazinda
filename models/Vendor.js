@@ -7,7 +7,7 @@ const VendorSchema = new mongoose.Schema(
     alternateNumber: { type: Number, required: true, unique: true },
     password: { type: String, required: true },
     category: { type: String },
-    priority: { type: String },
+    priority: { type: Number },
     imageURI: { type: String },
     whatsapp_group_id: { type: String },
     deliveryLocations: { type: Array, required: true },
